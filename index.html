@@ -80,7 +80,9 @@
     </div>
 
     <div id="video-screen">
-        <video id="final-video" src="my-video.mp4" controls></video>
+        <video id="final-video" controls playsinline preload="auto"> 
+            <source src="my-video.mp4" type="video/mp4">
+        </video>
     </div>
 
     <script>
@@ -120,7 +122,11 @@
         document.getElementById('yes-btn').addEventListener('click', () => {
             document.getElementById('video-screen').style.display = 'flex';
             music.pause();
-            document.getElementById('final-video').play();
+            music.currentTime = 0;
+            const v = document.getElementById('final-video');
+            v.play().catch(error => {
+                console.log("Video play failed, showing controls instead.");
+            });
         });
 
         // --- CORE FUNCTIONS (Hearts, Typewriter, Scroll) ---
